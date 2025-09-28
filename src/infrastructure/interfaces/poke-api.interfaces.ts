@@ -18,6 +18,7 @@ export interface PokeApiPokemon {
   avatar?: string;
   abilities: Ability[];
   base_experience: number;
+  color: string;
   forms: Species[];
   game_indices: GameIndex[];
   height: number;

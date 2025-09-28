@@ -34,21 +34,28 @@ yarn android
 
 ### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+For iOS, you need to install CocoaPods dependencies after cloning the project or whenever you update native dependencies. This step ensures all required native modules are linked and available for your app to build and run.
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+You have two options for installing pods:
+
+**Option 1: Using npx pod-install (recommended for most users)**
+
+```sh
+npx pod-install
+```
+
+This command automatically detects your iOS project and runs `pod install` for you. It's fast and works for most React Native setups.
+
+**Option 2: Using bundle exec pod install (if your project uses a Gemfile)**
 
 ```sh
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Use this if your project manages Ruby dependencies with a Gemfile. It ensures the correct version of CocoaPods is used.
+
+For more information, see the [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
 ```sh
 # Using npm

@@ -1,10 +1,10 @@
-import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { Pokemon } from '../../../domain/entities/pokemon';
-import { Card, Text } from 'react-native-paper';
-// import {FadeInImage} from '../ui/FadeInImage';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParams } from '../../navigator/StackNavigator';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { Card, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Pokemon } from '../../../domain/entities/pokemon';
+import { RootStackParams } from '../../navigator/StackNavigator';
+import { FadeInImage } from '../ui/FadeInImage';
 
 interface Props {
   pokemon: Pokemon;
@@ -21,9 +21,8 @@ export const PokemonCard = ({ pokemon }: Props) => {
         navigation.navigate('PokemonScreen', { pokemonId: pokemon?.id });
       }}
     >
-      <Card style={[styles.cardContainer]}>
-        {/* <Card style={[styles.cardContainer, {backgroundColor: pokemon.color}]}> */}
-        <Text style={styles.name} lineBreakMode="middle">
+      <Card style={[styles.cardContainer, {backgroundColor: pokemon?.color }]}>
+        <Text style={styles.name} lineBreakMode="middle" variant="bodyLarge">
           {pokemon?.name}
           {'\n#' + pokemon?.id}
         </Text>
@@ -33,16 +32,14 @@ export const PokemonCard = ({ pokemon }: Props) => {
           <Image
             source={require('../../../assets/pokeball-light.png')}
             style={styles.pokeball}
-            onLoad={() => console.log('Pokeball image loaded')}
             onError={e => console.log('Pokeball image error:', e.nativeEvent)}
           />
         </View>
 
         {/* Pokemon Image */}
-        <Image
-          source={{ uri: pokemon.avatar }}
+        <FadeInImage    
+          uri={pokemon.avatar}
           style={styles.pokemonImage}
-          onError={e => console.log('Pokemon image error:', e.nativeEvent)}
         />
 
         {/* Types */}
