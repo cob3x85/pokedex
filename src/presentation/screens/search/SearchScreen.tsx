@@ -5,7 +5,7 @@ import { ActivityIndicator, Text, TextInput } from 'react-native-paper';
 import { Pokemon } from '../../../domain/entities/pokemon';
 import { PokemonCard } from '../../components/pokemons/PokemonCard';
 import { useQuery } from '@tanstack/react-query';
-import { getPokemonNamesWithId } from '../../../actions/pokemons';
+import { getPokemonNamesWithId, getPokemonsByIds } from '../../../actions/pokemons';
 import { useMemo, useState } from 'react';
 import { FullScreenLoader } from '../../components/ui/FullScreenLoader';
 
@@ -35,6 +35,12 @@ export const SearchScreen = () => {
     );
   }, [term]);
 
+  const { isLoading: isLoadingPokemons, data: pokemons = [] } = useQuery({
+    queryKey: ['pokemons', 'by', pokemonNameIdList],
+    queryFn: () => getPokemonsByIds(pokemonNameIdList.map(p => p.id)),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  })
+
   if (isLoading) {
     return <FullScreenLoader />;
   }
@@ -49,11 +55,10 @@ export const SearchScreen = () => {
         onChangeText={text => setTerm(text)}
         value={term}
       />
-
+ 
       <ActivityIndicator style={{ marginTop: 20 }} size={50} color="grey" />
-      <Text>{JSON.stringify(pokemonNameIdList, null, 2)}</Text>
       <FlatList
-        data={[] as Pokemon[]}
+        data={pokemons}
         keyExtractor={(pokemon, index) => `${pokemon.id}-${index}`}
         numColumns={2}
         renderItem={({ item }) => <PokemonCard pokemon={item} />}
