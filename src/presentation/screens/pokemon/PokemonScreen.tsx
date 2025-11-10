@@ -59,7 +59,6 @@ export const PokemonScreen = ({navigation, route}: Props) => {
         {pokemon.types.map(type => (
           <Chip
             key={type}
-            mode="outlined"
             selectedColor="white"
             style={{marginLeft: 10}}>
             {type}
@@ -94,7 +93,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
         keyExtractor={item => item}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <Chip selectedColor="white">{Formatter.capitalize(item)}</Chip>
+          <Chip selectedColor="white" style={{marginLeft: 10}}>{Formatter.capitalize(item)}</Chip>
         )}
       />
 
@@ -142,7 +141,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
         showsHorizontalScrollIndicator={false}
         centerContent
         renderItem={({item}) => (
-          <Chip selectedColor="white">{Formatter.capitalize(item)}</Chip>
+          <Chip selectedColor="white" style={{marginLeft: 10}}>{Formatter.capitalize(item)}</Chip>
         )}
       />
 
